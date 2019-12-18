@@ -1,7 +1,7 @@
 import Validator from '../app';
 
 test('Проверка правильного имени', () => {
-  const expected = 'Имя корректно';
+  const expected = 'Имя некорректно';
   const validator = new Validator();
   const received = validator.validateUsername('Иван Петров-Водкин');
   expect(received).toBe(expected);
@@ -33,4 +33,10 @@ test('Проверка имени со знаками', () => {
   const validator = new Validator();
   const received = validator.validateUsername('Ива!@н Петров');
   expect(received).toBe(expected);
+});
+
+test('Проверка валидации более трёх цифр Иванов7777Петров', () => {
+  const expected = 'Имя некорректно';
+  const received = new Validator();
+  expect(received.validateUsername('Иванов7777Петров')).toBe(expected);
 });
