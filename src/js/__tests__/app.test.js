@@ -1,42 +1,55 @@
-import Validator from '../app';
+import Validator from "../app";
 
-test('Проверка правильного имени', () => {
-  const expected = 'Имя некорректно';
+test("Валидация пройдена", () => {
   const validator = new Validator();
-  const received = validator.validateUsername('Иван Петров-Водкин');
-  expect(received).toBe(expected);
+  const received = validator.validateUsername("AR4ANG3L");
+  expect(received).toBe(true);
 });
 
-test('Проверка имени c двумя пробелами', () => {
-  const expected = 'Имя некорректно';
+test("Валидация не пройдена", () => {
   const validator = new Validator();
-  const received = validator.validateUsername('Иван  Петров');
-  expect(received).toBe(expected);
+  const received = validator.validateUsername("С3POL");
+  expect(received).toBe(false);
 });
 
-test('Проверка имени c пробелами в начале', () => {
-  const expected = 'Имя некорректно';
+test("Валидация не пройдена", () => {
   const validator = new Validator();
-  const received = validator.validateUsername(' Иван Петров');
-  expect(received).toBe(expected);
+  const received = validator.validateUsername("AL");
+  expect(received).toBe(false);
 });
 
-test('Проверка имени с цифрами', () => {
-  const expected = 'Имя некорректно';
+test("Начинается с цифры", () => {
   const validator = new Validator();
-  const received = validator.validateUsername('Ива0н Петров');
-  expect(received).toBe(expected);
+  const received = validator.validateUsername("777Ivan");
+  expect(received).toBe(false);
 });
 
-test('Проверка имени со знаками', () => {
-  const expected = 'Имя некорректно';
+test("Заканчивается цифрой", () => {
   const validator = new Validator();
-  const received = validator.validateUsername('Ива!@н Петров');
-  expect(received).toBe(expected);
+  const received = validator.validateUsername("IVAN777");
+  expect(received).toBe(false);
 });
 
-test('Проверка валидации более трёх цифр Иванов7777Петров', () => {
-  const expected = 'Имя некорректно';
-  const received = new Validator();
-  expect(received.validateUsername('Иванов7777Петров')).toBe(expected);
+test("Более трех цифр подряд", () => {
+  const validator = new Validator();
+  const received = validator.validateUsername("Ivan7777");
+  expect(received).toBe(false);
+});
+
+test("Кириллица", () => {
+  const validator = new Validator();
+  const received = validator.validateUsername("Иван");
+  expect(received).toBe(false);
+});
+
+test("Начинается с тире", () => {
+  const validator = new Validator();
+  const received = validator.validateUsername("-Ivan");
+  expect(received).toBe(false);
+});
+
+test("Заканчивается подчеркиванием", () => {
+  const validator = new Validator();
+  const received = validator.validateUsername("Ivan_");
+  expect(received).toBe(false);
 });
