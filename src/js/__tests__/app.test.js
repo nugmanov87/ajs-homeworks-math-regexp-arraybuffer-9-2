@@ -39,7 +39,7 @@ test('Заканчивается цифрой', () => {
 test('Не более трех цифр подряд', () => {
   const validator = new Validator();
   const received = validator.validateUsername('O0-00-0O');
-  expect(received).toBe(true);
+  expect(received).toBe(false);
 });
 
 test('Более трех цифр подряд', () => {
